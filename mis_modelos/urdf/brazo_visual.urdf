@@ -1,0 +1,169 @@
+<robot name="brazo_robotico">
+    <!-- BASE DEL ROBOT -->
+    <link name="base_footprint"/>
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_brazo.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
+
+    <link name="base_cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="base_roll_joint" type="continuous">
+        <parent link="base_link"/>
+		<child link="base_cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<axis xyz="0 0 1"/>
+    </joint>
+
+
+    <link name="cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="cilindro_joint" type="fixed">
+        <parent link="base_cilindro_link"/>
+		<child link="cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="cabeza_cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza_cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="cabeza_cilindro_joint" type="fixed">
+        <parent link="cilindro_link"/>
+		<child link="cabeza_cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="Link1_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link1.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </visual>
+    </link>
+
+    <joint name="Link1_joint" type="revolute">
+        <parent link="cabeza_cilindro_link"/>
+		<child link="Link1_link"/>
+		<origin xyz="0 0 4.2" rpy="0 0 0"/>
+        <limit lower="-0.6" upper="2.2" effort="0.1" velocity="0.005"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <link name="Tornillo1_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo1.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </visual>
+    </link>
+
+    <joint name="Tornillo1_joint" type="fixed">
+        <parent link="Link1_link"/>
+		<child link="Tornillo1_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="Link2_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link2.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </visual>
+    </link>
+
+    <joint name="Link2_joint" type="revolute">
+        <parent link="Tornillo1_link"/>
+		<child link="Link2_link"/>
+		<origin xyz="0 0 4.28" rpy="0 0 0"/>
+        <limit lower="-3.14" upper="-1.1" effort="0.1" velocity="0.005"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <link name="Tornillo2_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo2.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </visual>
+    </link>
+
+    <joint name="Tornillo2_joint" type="fixed">
+        <parent link="Link2_link"/>
+		<child link="Tornillo2_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <link name="Link3_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link3.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </visual>
+    </link>
+
+    <joint name="Link3_joint" type="revolute">
+        <parent link="Tornillo2_link"/>
+		<child link="Link3_link"/>
+		<origin xyz="3.8 0 0" rpy="0 0 0"/>
+        <limit lower="-1.6" upper="1.6" effort="0.1" velocity="0.005"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <link name="Cabeza_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </visual>
+    </link>
+
+    <joint name="Cabeza_joint" type="continuous">
+        <parent link="Link3_link"/>
+		<child link="Cabeza_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<axis xyz="1 0 0"/>
+    </joint>
+</robot>

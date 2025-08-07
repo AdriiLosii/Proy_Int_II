@@ -1,0 +1,29 @@
+<launch>
+    <node name="nodo_pos_inicial" pkg="mis_modelos" type="posicion_inicial.py" output="screen"/>
+
+    <include file="$(find mis_modelos)/launch/spawn_urdf.launch">
+        <arg name="x" default="0.0"/>
+        <arg name="y" default="0.0"/>
+        <arg name="z" default="0.0"/>
+        <arg name="urdf_robot_file" value="$(find mis_modelos)/urdf/brazo_completo.urdf"/>
+        <arg name="robot_name" value=""/>
+    </include>
+    <!--Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find mis_modelos)/config/config.yaml" command="load"/>
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+    respawn="false" output="screen" ns="/brazo"
+    args="--namespace=/brazo
+    joint_state_controller
+    joint_base
+    joint_link1
+    joint_link2
+    joint_link3
+    joint_cabeza
+    --timeout 60">
+    </node>
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+        <remap from="/joint_states" to="/robot/joint_states"/>
+    </node>
+</launch>

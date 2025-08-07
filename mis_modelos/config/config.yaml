@@ -1,0 +1,37 @@
+brazo:
+
+  # Publish all join states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+
+  # Articulacion base rotativa
+  joint_base:
+    type: effort_controllers/JointPositionController
+    joint: base_cilindro_joint
+    pid: {p: 80.0, i: 0.01, d: 10.0}
+
+  # Articulacion primer eslabon
+  joint_link1:
+    type: effort_controllers/JointPositionController
+    joint: Link1_joint
+    pid: {p: 80.0, i: 0.01, d: 10.0}
+
+  # Articulacion segundo eslabon
+  joint_link2:
+    type: effort_controllers/JointPositionController
+    joint: Link2_joint
+    pid: {p: 80.0, i: 0.01, d: 10.0}
+
+  # Articulacion tercer eslabon
+  joint_link3:
+    type: effort_controllers/JointPositionController
+    joint: Link3_joint
+    pid: {p: 80.0, i: 0.01, d: 10.0}
+
+  # Articulacion cabeza
+  joint_cabeza:
+    type: effort_controllers/JointPositionController
+    joint: Cabeza_joint
+    pid: {p: 80.0, i: 0.01, d: 10.0}

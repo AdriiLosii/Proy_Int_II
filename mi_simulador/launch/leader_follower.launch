@@ -1,0 +1,4 @@
+<launch>
+    <node pkg='mi_simulador' type='follower_stage.py' name='follower_node' output='screen'/>
+    <node pkg='mi_simulador' type='leader_stage.py' name='leader_node' output='screen'/>
+</launch>

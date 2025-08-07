@@ -1,0 +1,14 @@
+############ GITHUB ############
+TOKEN: (token)
+url: https://github.com/AdriiLosii/proy_int_2.git
+Clonar un repositorio de github a local:
+Ubi: catkin_ws/src/
+git clone (url)
+
+Subir los archivos locales a github:
+Ubi: catkin_ws/src/(repositorio)
+git add -A
+git status
+git commit -m "(mensaje descriptivo)"
+	###git remote add (nombre repo) (url) #Si no tenemos un repositorio creado, lo creamos remotamente.
+git push (nombre repo) master

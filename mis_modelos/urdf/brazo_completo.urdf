@@ -1,0 +1,413 @@
+<robot name="brazo_robotico">
+    <!-- BASE DEL ROBOT -->
+    <link name="world"/>
+
+
+    <!-- BASE DEL BRAZO -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_brazo.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_brazo.dae"/>
+                <!--<cylinder length="0.93" radius="3.8"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0.465"/>
+            <mass value="200"/>
+            <inertia ixx="736.415" ixy="0.0" ixz="0.0" iyy="736.415" iyz="0.0" izz="1444.0"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="base_link"/>
+
+    <joint name="fixed_joint" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+
+
+    <!-- BASE DEL CILINDRO -->
+    <link name="base_cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Base_cilindro.dae"/>
+                <!--<cylinder length="0.63" radius="1.25"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0.93"/>
+            <mass value="0.5"/>
+            <inertia ixx="0.21185" ixy="0.0" ixz="0.0" iyy="0.21185" iyz="0.0" izz="0.390625"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="base_cilindro_link"/>
+
+    <joint name="base_cilindro_joint" type="continuous">
+        <parent link="base_link"/>
+		<child link="base_cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+        <limit lower="-3.14" upper="3.14" effort="500" velocity="0.25"/>
+		<axis xyz="0 0 1"/>
+    </joint>
+
+
+    <!-- CILINDRO -->
+    <link name="cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cilindro.dae"/>
+                <!--<cylinder length="3.5" radius="0.46"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0"/>
+            <mass value="0.4"/>
+            <inertia ixx="0.429493" ixy="0.0" ixz="0.0" iyy="0.429493" iyz="0.0" izz="0.84"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="cilindro_link"/>
+
+    <joint name="cilindro_joint" type="fixed">
+        <parent link="base_cilindro_link"/>
+		<child link="cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- CABEZA DEL CILINDRO -->
+    <link name="cabeza_cilindro_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza_cilindro.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza_cilindro.dae"/>
+                <!--<cylinder length="0.35" radius="0.67"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0"/>
+            <mass value="0.2"/>
+            <inertia ixx="0.0244867" ixy="0.0" ixz="0.0" iyy="0.0244867" iyz="0.0" izz="0.04489"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="cabeza_cilindro_link"/>
+
+    <joint name="cabeza_cilindro_joint" type="fixed">
+        <parent link="cilindro_link"/>
+		<child link="cabeza_cilindro_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- PRIMER ESLABÓN -->
+    <link name="Link1_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link1.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link1.dae"/>
+                <!--<cylinder length="5.45" radius="0.77"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 2.1"/>
+            <mass value="0.025"/>
+            <inertia ixx="0.0655858" ixy="0.0" ixz="0.0" iyy="0.0655858" iyz="0.0" izz="0.13"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Link1_link"/>
+
+    <joint name="Link1_joint" type="revolute">
+        <parent link="cabeza_cilindro_link"/>
+		<child link="Link1_link"/>
+		<origin xyz="0 0 4.2" rpy="0 0 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="500" velocity="0.1"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <!-- PRIMER TORNILLO -->
+    <link name="Tornillo1_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo1.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo1.dae"/>
+                <!--<cylinder length="0.4" radius="0.21"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -4.2"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 2.1"/>
+            <mass value="0.001"/>
+            <inertia ixx="0.00002435833" ixy="0.0" ixz="0.0" iyy="0.00002435833" iyz="0.0" izz="0.000048"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Tornillo1_link"/>
+
+    <joint name="Tornillo1_joint" type="fixed">
+        <parent link="Link1_link"/>
+		<child link="Tornillo1_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- SEGUNDO ESLABÓN -->
+    <link name="Link2_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link2.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link2.dae"/>
+                <!--<cylinder length="4.5" radius="0.85"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="2.1 0 0" rpy="0 1.5708 0"/>
+            <mass value="0.025"/>
+            <inertia ixx="0.046703125" ixy="0.0" ixz="0.0" iyy="0.046703125" iyz="0.0" izz="0.0903125"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Link2_link"/>
+
+    <joint name="Link2_joint" type="revolute">
+        <parent link="Tornillo1_link"/>
+		<child link="Link2_link"/>
+		<origin xyz="0 0 4.28" rpy="0 0 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="500" velocity="0.25"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <!-- SEGUNDO TORNILLO -->
+    <link name="Tornillo2_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo2.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Tornillo2.dae"/>
+                <!--<cylinder length="0.4" radius="0.21"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 -8.48"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0 0 0"/>
+            <mass value="0.001"/>
+            <inertia ixx="0.00002435833" ixy="0.0" ixz="0.0" iyy="0.00002435833" iyz="0.0" izz="0.000048"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Tornillo2_link"/>
+
+    <joint name="Tornillo2_joint" type="fixed">
+        <parent link="Link2_link"/>
+		<child link="Tornillo2_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+
+    <!-- TERCER ESLABÓN -->
+    <link name="Link3_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link3.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Link3.dae"/>
+                <!--<cylinder length="0.59" radius="1.15"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="0.95 0 0"/>
+            <mass value="0.02"/>
+            <inertia ixx="0.00719267" ixy="0.0" ixz="0.0" iyy="0.00719267" iyz="0.0" izz="0.013225"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Link3_link"/>
+
+    <joint name="Link3_joint" type="revolute">
+        <parent link="Tornillo2_link"/>
+		<child link="Link3_link"/>
+		<origin xyz="3.8 0 0" rpy="0 0 0"/>
+        <limit lower="-1.5708" upper="1.5708" effort="500" velocity="0.1"/>
+		<axis xyz="0 1 0"/>
+    </joint>
+
+
+    <!-- CABEZA DEL BRAZO -->
+    <link name="Cabeza_link">
+        <visual>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza.dae"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <mesh filename="package://mis_modelos/meshes/robotarm_meshes/Cabeza.dae"/>
+                <!--<cylinder length="0.915" radius="1.3"/>-->
+            </geometry>
+            <origin rpy="0 0 0" xyz="-3.8 0 -8.48"/>
+        </collision>
+
+        <inertial>
+            <origin xyz="1.9 0 0"/>
+            <mass value="0.01"/>
+            <inertia ixx="0.0049227" ixy="0.0" ixz="0.0" iyy="0.0049227" iyz="0.0" izz="0.00845"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="Cabeza_link"/>
+
+    <joint name="Cabeza_joint" type="continuous">
+        <parent link="Link3_link"/>
+		<child link="Cabeza_link"/>
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+        <limit lower="-3.14" upper="3.14" effort="500" velocity="0.1"/>
+		<axis xyz="1 0 0"/>
+    </joint>
+
+
+    <!-- PLUGINS -->
+    <gazebo>
+            <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+                <robotNamespace>/brazo</robotNamespace>
+                <legacyModeNS>true</legacyModeNS>
+            </plugin>
+    </gazebo>
+
+
+    <!-- Base rotativa -->
+    <transmission name="trans_base">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="base_cilindro_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+
+        <actuator name="motor_base">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <!-- Primer eslabon -->
+    <transmission name="trans_link1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Link1_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+
+        <actuator name="motor_link1">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <!-- Segundo eslabon -->
+    <transmission name="trans_link2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Link2_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+
+        <actuator name="motor_link2">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <!-- Tercer eslabon -->
+    <transmission name="trans_link3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Link3_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+
+        <actuator name="motor_link3">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <!-- Cabeza -->
+    <transmission name="trans_cabeza">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Cabeza_joint">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+
+        <actuator name="motor_cabeza">
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+</robot>

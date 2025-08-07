@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<robot name="mira">
+
+	<material name="green">
+		<color rgba="0 0.8 0 1"/>
+	</material>
+
+	<material name="grey">
+		<color rgba="0.75 0.75 0.75 1"/>
+	</material>
+
+	<material name="red">
+		<color rgba="0.0 0 0 1"/>
+	</material>
+
+	<material name="blue">
+		<color rgba="0 0 0.8 1"/>
+	</material>
+
+	<material name="white">
+		<color rgba="1.0 1.0 1.0 1"/>
+	</material>
+
+	<material name="black">
+		<color rgba="0.0 0.0 0.0 1"/>
+	</material>
+
+	<link name="base_link">
+		<visual>
+		<origin rpy="0 0 0" xyz="0 0 0"/>
+		<geometry>
+			<cylinder radius="0.06" length="0.09"/>
+		</geometry>
+		<material name="green"/>
+		</visual>
+	</link>
+
+	<link name="head_link">
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<sphere radius="0.06" />
+			</geometry>
+			<material name="white"/>
+		</visual>
+	</link>
+
+	<joint name="base_head_joint" type="continuous">
+		<parent link="base_link" />
+		<child link="head_link" />
+		<origin xyz="0 0 0.105" rpy="0 0 0"/>
+	</joint>
+
+	<joint name="head_roll_joint" type="revolute">
+		<parent link="base_link"/>
+		<child link="head_link"/>
+		<origin xyz="0 0 0.105" rpy="0 0 0"/>
+		<limit lower="-0.6" upper="0.6" effort="0.1" velocity="0.005"/>
+		<axis xyz="0 1 1"/>
+	</joint>
+
+	<link name="left_eye_link">
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.005" length="0.005" />
+			</geometry>
+			<material name="black"/>
+		</visual>
+	</link>
+
+	<joint name="left_eye_joint" type="fixed">
+		<parent link="head_link" />
+		<child link="left_eye_link" />
+		<origin xyz="0.0095 0.057 0.0085" rpy="-1.5708 0 0"/>
+	</joint>
+
+	<link name="right_eye_link">
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<cylinder radius="0.005" length="0.005" />
+			</geometry>
+		<material name="black"/>
+		</visual>
+	</link>
+
+	<joint name="right_eye_joint" type="fixed">
+		<parent link="head_link" />
+		<child link="right_eye_link" />
+		<origin xyz="-0.0095 0.057 0.0085" rpy="-1.5708 0 0"/>
+	</joint>
+
+	<link name="camera_link">
+		<visual>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<geometry>
+				<box size="0.01 0.01 0.01"/>
+			</geometry>
+			<material name="green"/>
+		</visual>
+	</link>
+
+	<joint name="camera_joint" type="fixed">
+		<parent link="head_link" />
+		<child link="camera_link" />
+		<origin xyz="0.0 0.0 0.06" rpy="0 0 0"/>
+	</joint>
+</robot>

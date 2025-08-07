@@ -1,0 +1,432 @@
+<robot name="turtlebot_visual">
+
+<!-- BASE DEL ROBOT -->
+<link name="base_footprint"/>
+<link name="base_link">
+    <visual>
+        <geometry>
+            <!-- new mesh -->
+            <mesh filename="package://mis_modelos/meshes/kobuki_meshes/main_body.dae"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0.001 0 0.05199"/>
+    </visual>
+</link>
+
+<joint name="base_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0102"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+</joint>
+
+<link name="wheel_left_link">
+    <visual>
+        <geometry>
+            <mesh filename="package://mis_modelos/meshes/kobuki_meshes/wheel.dae"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+</link>
+
+<joint name="wheel_left_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_left_link"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0.00 0.115 0.0250"/>
+    <axis xyz="0 0 1"/>
+</joint>
+
+<link name="wheel_right_link">
+    <visual>
+        <geometry>
+            <mesh filename="package://mis_modelos/meshes/kobuki_meshes/wheel.dae"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+</link>
+
+<joint name="wheel_right_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="wheel_right_link"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0.00 -0.115 0.0250"/>
+    <axis xyz="0 0 1"/>
+</joint>
+
+<link name="caster_front_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.0176" radius="0.017"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+</link>
+
+<joint name="caster_front_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin rpy="-1.57079632679 0 0" xyz="0.115 0.0 0.007"/>
+    <axis xyz="0 0 1"/>
+</joint>
+
+<link name="caster_back_link">
+    <visual>
+        <geometry>
+            <cylinder length="0.0176" radius="0.017"/>
+        </geometry>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </visual>
+</link>
+
+<joint name="caster_back_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="caster_back_link"/>
+    <origin rpy="-1.57079632679 0 0" xyz="-0.135 0.0 0.009"/>
+    <axis xyz="0 0 1"/>
+</joint>
+
+<!-- ESTRUCTURA ENCIMA DE LA BASE -->
+<!-- palitos.... -->
+<link name="pole_bottom_0_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+
+<joint name="pole_bottom_0_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.12 0.082 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_0_link"/>
+</joint>
+
+<link name="pole_bottom_1_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+
+<joint name="pole_bottom_1_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.055 0.12 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_1_link"/>
+</joint>
+
+<link name="pole_bottom_2_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+
+<joint name="pole_bottom_2_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.055 0.12 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_2_link"/>
+</joint>
+<link name="pole_bottom_3_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_bottom_3_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.12 -0.082 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_3_link"/>
+</joint>
+<link name="pole_bottom_4_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_bottom_4_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.055 -0.12 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_4_link"/>
+</joint>
+<joint name="pole_bottom_5_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.055 -0.12 0.1028"/>
+<parent link="base_link"/>
+<child link="pole_bottom_5_link"/>
+</joint>
+<link name="pole_bottom_5_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+
+<!-- plataforma.... -->
+<link name="plate_bottom_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/plate_bottom.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="plate_bottom_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.02364 0.0 0.1306"/>
+<parent link="base_link"/>
+<child link="plate_bottom_link"/>
+</joint>
+
+<!--SEGUNDA ESTRUCTURA ENCIMA DE LA BASE -->
+<!-- palitos.... -->
+<link name="pole_middle_0_link">
+<visual>
+<origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_middle.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_middle_0_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.0381 0.1505 0.164"/>
+<parent link="base_link"/>
+<child link="pole_middle_0_link"/>
+</joint>
+<link name="pole_middle_1_link">
+<visual>
+<origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_middle.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_middle_1_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.0381 -0.1505 0.164"/>
+<parent link="base_link"/>
+<child link="pole_middle_1_link"/>
+</joint>
+<link name="pole_middle_2_link">
+<visual>
+<origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_middle.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_middle_2_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.0381 0.1505 0.164"/>
+<parent link="base_link"/>
+<child link="pole_middle_2_link"/>
+</joint>
+<link name="pole_middle_3_link">
+<visual>
+<origin rpy="0 3.14159265359 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_middle.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_middle_3_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.0381 -0.1505 0.164"/>
+<parent link="base_link"/>
+<child link="pole_middle_3_link"/>
+</joint>
+<link name="plate_middle_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/plate_middle.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="plate_middle_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.01364 0.0 0.1874"/>
+<parent link="base_link"/>
+<child link="plate_middle_link"/>
+</joint>
+
+<!--ENCIMA DE LA SEGUNDA PLATAFORMA  -->
+<link name="pole_top_0_link">
+<visual>
+<origin rpy="0 0 0" xyz=" 0 0 0"/>
+<geometry>
+<!--
+
+            <mesh filename="package://turtlebot_description/meshes/stacks/hexagons/pole_top.dae" />
+            
+-->
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_top.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_top_0_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.0381 0.1505 0.292"/>
+<parent link="base_link"/>
+<child link="pole_top_0_link"/>
+</joint>
+<link name="pole_top_1_link">
+<visual>
+<origin rpy="0 0 0" xyz=" 0 0 0"/>
+<geometry>
+<!--
+
+            <mesh filename="package://turtlebot_description/meshes/stacks/hexagons/pole_top.dae" />
+            
+-->
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_top.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_top_1_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.0381 -0.1505 0.292"/>
+<parent link="base_link"/>
+<child link="pole_top_1_link"/>
+</joint>
+<link name="pole_top_2_link">
+<visual>
+<origin rpy="0 0 0" xyz=" 0 0 0"/>
+<geometry>
+<!--
+
+            <mesh filename="package://turtlebot_description/meshes/stacks/hexagons/pole_top.dae" />
+            
+-->
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_top.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="pole_top_2_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.0381 0.1505 0.292"/>
+<parent link="base_link"/>
+<child link="pole_top_2_link"/>
+</joint>
+<joint name="pole_top_3_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.0381 -0.1505 0.292"/>
+<parent link="base_link"/>
+<child link="pole_top_3_link"/>
+</joint>
+<link name="pole_top_3_link">
+<visual>
+<origin rpy="0 0 0" xyz=" 0 0 0"/>
+<geometry>
+<!--
+
+            <mesh filename="package://turtlebot_description/meshes/stacks/hexagons/pole_top.dae" />
+            
+-->
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/pole_top.dae"/>
+</geometry>
+</visual>
+</link>
+<link name="plate_top_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/stacks/hexagons/plate_top.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="plate_top_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.01364 0.0 0.3966"/>
+<parent link="base_link"/>
+<child link="plate_top_link"/>
+</joint>
+
+<!--PALOS PARA LA KINNECT  -->
+<link name="pole_kinect_0_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 -0.01"/>
+<geometry>
+<!-- <cylinder radius="0.005" length="0.05" /> -->
+<cylinder length="0.0936" radius="0.006"/>
+<!--
+ <mesh filename="package://mis_modelos/meshes/kobuki_meshes/sensors/sensor_pole.dae" /> 
+-->
+</geometry>
+</visual>
+</link>
+<joint name="pole_kinect_0_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.1024 0.098 0.2372"/>
+<parent link="base_link"/>
+<child link="pole_kinect_0_link"/>
+</joint>
+<joint name="pole_kinect_1_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.1024 -0.098 0.2372"/>
+<parent link="base_link"/>
+<child link="pole_kinect_1_link"/>
+</joint>
+<link name="pole_kinect_1_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 -0.01"/>
+<geometry>
+<!--
+ <mesh filename="package://mis_modelos/meshes/sensors/sensor_pole.dae" /> 
+-->
+<cylinder length="0.0936" radius="0.006"/>
+</geometry>
+</visual>
+</link>
+<joint name="mount_asus_xtion_pro_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.1024 0.0 0.272"/>
+<parent link="base_link"/>
+<child link="mount_asus_xtion_pro_link"/>
+</joint>
+<link name="mount_asus_xtion_pro_link">
+<visual>
+<origin rpy="-1.57079632679 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/xtion_pro_stack.dae"/>
+</geometry>
+</visual>
+</link>
+
+<!-- SCANNER LASER -->
+<link name="laser_sensor_link">
+<visual>
+<origin rpy="0 0 0" xyz="0 0 0"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kobuki_meshes/sensors/hokuyo.dae"/>
+</geometry>
+</visual>
+</link>
+<joint name="laser_sensor_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0.0 0.0 0.435"/>
+<parent link="base_link"/>
+<child link="laser_sensor_link"/>
+</joint>
+
+<!-- CAMARA RGBD -->
+<joint name="camera_rgb_joint" type="fixed">
+<origin rpy="0 0 0" xyz="-0.087 0.0205 0.287"/>
+<parent link="base_link"/>
+<child link="camera_rgb_frame"/>
+</joint>
+<link name="camera_rgb_frame"/>
+<joint name="camera_rgb_optical_joint" type="fixed">
+<origin rpy="-1.57079632679 0 -1.57079632679" xyz="0 0 0"/>
+<parent link="camera_rgb_frame"/>
+<child link="camera_rgb_optical_frame"/>
+</joint>
+<link name="camera_rgb_optical_frame"/>
+<joint name="camera_joint" type="fixed">
+<origin rpy="0 0 0" xyz="0 -0.022 0"/>
+<parent link="camera_rgb_frame"/>
+<child link="camera_link"/>
+</joint>
+<link name="camera_link">
+<visual>
+<!-- <origin rpy="0 0 0" xyz="-0.015 0.0035 0.004" /> -->
+<origin rpy="0 0 1.57079632679" xyz="-0.015 0.0035 0.004"/>
+<geometry>
+<mesh filename="package://mis_modelos/meshes/kinect.dae"/>
+<!--<box size="0.0730 0.2760 0.0720" /> -->
+</geometry>
+</visual>
+</link>
+</robot>
